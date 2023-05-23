@@ -1,0 +1,11 @@
+---
+package_format_version: "0.3"
+name: redis-connector-sink
+version: 0.1.0
+group: am
+description: "WIP fluvio to RedisJSON connector"
+license: e.g. Apache2
+visibility: private
+manifest:
+  - "../Connector.toml"
+tags: ~

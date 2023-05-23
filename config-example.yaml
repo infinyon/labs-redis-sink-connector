@@ -1,0 +1,11 @@
+meta:
+  version: 0.1.0
+  name: my-redis-connector-sink-test-connector
+  type: redis-connector-sink-sink
+  topic: hackernews
+redis:
+  prefix: hackernews
+  url:
+    secret:
+      name: "REDIS_URL"
+  to_hash: false

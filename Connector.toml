@@ -1,0 +1,37 @@
+[package]
+name = "redis-connector-sink"
+group = "am"
+version = "0.1.0"
+apiVersion = "0.1.0"
+fluvio = "0.10.0"
+description = ""
+license = "Apache-2.0"
+visibility = "private"
+
+[direction]
+ dest = true 
+
+[deployment]
+binary = "redis-connector-sink"
+
+[custom]
+name = "redis"
+required = ["prefix","url","to_hash"]
+
+[custom.properties.url]
+title = "Redis Sink Connector"
+description = "Connector to write into Redis"
+type = "string"
+
+[custom.properties.prefix]
+title = "Prefix"
+description = "Prefix for Redis key"
+type = "string"
+
+[custom.properties.to_hash]
+title = "To Hash"
+description = "Boolean to write to Redis Hash, by default it writes to Redis JSON"
+type = "boolean"
+
+[secret.REDIS_URL]
+type = "env"
