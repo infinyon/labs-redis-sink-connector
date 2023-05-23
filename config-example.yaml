@@ -1,7 +1,7 @@
 meta:
   version: 0.1.0
   name: my-redis-connector-sink-test-connector
-  type: redis-connector-sink-sink
+  type: redis-sink
   topic: hackernews
 redis:
   prefix: hackernews

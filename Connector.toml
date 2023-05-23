@@ -1,10 +1,10 @@
 [package]
-name = "redis-connector-sink"
+name = "redis-sink"
 group = "am"
 version = "0.1.0"
 apiVersion = "0.1.0"
 fluvio = "0.10.0"
-description = ""
+description = "Fluvio to Redis sink connector"
 license = "Apache-2.0"
 visibility = "private"
 
@@ -12,7 +12,7 @@ visibility = "private"
  dest = true 
 
 [deployment]
-binary = "redis-connector-sink"
+binary = "redis-sink"
 
 [custom]
 name = "redis"
