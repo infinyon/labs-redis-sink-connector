@@ -1,4 +1,4 @@
-# WIP fluvio to RedisJSON connector
+# Experimenta fluvio to Redis connector
 
 The connector dump records (assumed JSON, see fluvio smart modules) from fluvio topics into Redis JSON 
 
@@ -53,5 +53,6 @@ redis:
   to_hash: false
 ```
 if you want to listen to the topic different to hackers news 
+Change `to_hash` to `true` to save records as Hash instead of JSON. 
 
 Follow up [quickstart](https://www.fluvio.io/connectors/cdk/overview/) to build you own connector 
