@@ -1,4 +1,4 @@
-# Experimenta fluvio to Redis connector
+# fluvio to Redis connector (expertimental)
 
 The connector dump records (assumed JSON, see fluvio smart modules) from fluvio topics into Redis JSON 
 
