@@ -56,3 +56,20 @@ if you want to listen to the topic different to hackers news
 Change `to_hash` to `true` to save records as Hash instead of JSON. 
 
 Follow up [quickstart](https://www.fluvio.io/connectors/cdk/overview/) to build you own connector 
+
+# Mac test for RedisTimeSeries
+To test on mac:
+redis-server /opt/homebrew/Caskroom/redis-stack-server/6.2.6-v6/etc/redis-stack-service.conf
+
+Config
+```
+cat /opt/homebrew/Caskroom/redis-stack-server/6.2.6-v6/etc/redis-stack-service.conf                                                                                
+port 6379
+daemonize no
+protected-mode no
+loadmodule /opt/homebrew/Caskroom/redis-stack-server/6.2.6-v6/lib/redisearch.so
+loadmodule /opt/homebrew/Caskroom/redis-stack-server/6.2.6-v6/lib/redisgraph.so
+loadmodule /opt/homebrew/Caskroom/redis-stack-server/6.2.6-v6/lib/redistimeseries.so DUPLICATE_POLICY LAST
+loadmodule /opt/homebrew/Caskroom/redis-stack-server/6.2.6-v6/lib/rejson.so
+loadmodule /opt/homebrew/Caskroom/redis-stack-server/6.2.6-v6/lib/redisbloom.so
+```
