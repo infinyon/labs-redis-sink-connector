@@ -5,8 +5,9 @@ authors = ["Alexander Mikhalev <alexander@infinyon.com>"]
 edition = "2021"
 
 [dependencies]
-fluvio = { git = "https://github.com/infinyon/fluvio", tag="v0.10.8-dev-3"}
-fluvio-connector-common = { git = "https://github.com/infinyon/fluvio", tag="v0.10.8-dev-3", features = ["derive"]}
+fluvio = { git = "https://github.com/infinyon/fluvio", tag = "v0.10.11" }
+fluvio-connector-common = { git = "https://github.com/infinyon/fluvio", tag = "v0.10.11", features = ["derive"]}
+
 serde = { version = "1.0", default-features = false, features = ["derive"]}
 redis = { version = "0.23.0", features = ["json","async-std-comp"] }
 async-trait = { version = "0.1", default-features = false}

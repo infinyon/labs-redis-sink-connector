@@ -16,7 +16,7 @@ binary = "redis-sink"
 
 [custom]
 name = "redis"
-required = ["prefix","url","to_hash"]
+required = ["prefix","url"]
 
 [custom.properties.url]
 title = "Redis Sink Connector"
@@ -28,10 +28,10 @@ title = "Prefix"
 description = "Prefix for Redis key"
 type = "string"
 
-[custom.properties.to_hash]
-title = "To Hash"
-description = "Boolean to write to Redis Hash, by default it writes to Redis JSON"
-type = "boolean"
+[custom.properties.operation]
+title = "Operation"
+description = "default it writes to Redis JSON"
+type = "string"
 
 [secret.REDIS_URL]
 type = "env"
