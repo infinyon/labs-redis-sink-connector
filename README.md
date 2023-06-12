@@ -1,11 +1,11 @@
-# fluvio to Redis connector (expertimental)
+# fluvio to Redis connector (experimental)
 
 The connector dump records (assumed JSON, see fluvio smart modules) from fluvio topics into Redis JSON 
 
-to run locally using local redis installation 
+to run locally using local Redis installation 
 
 ## Install Fluvio and Fluvio Connector Development Kit (CDK)
-Install fluvio:
+Install Fluvio:
 ```
 curl -fsS https://packages.fluvio.io/v1/install.sh | bash
 ```

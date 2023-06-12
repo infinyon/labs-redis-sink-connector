@@ -1,7 +1,8 @@
-
 use std::borrow::Cow;
+use std::collections::hash_map::Entry;
 use std::collections::HashMap;
 
+use anyhow::anyhow;
 use anyhow::Context;
 use anyhow::Result;
 use async_trait::async_trait;
@@ -54,43 +55,44 @@ impl Sink<Record> for RedisSink {
             };
             let key = format!("{}:{}", self.prefix, key);
             println!("key: {}", key);
-            let operation = if self.operation.is_some(){
-                let operation=self.operation.clone().unwrap();
-                let operation = operation.to_uppercase();
-                operation
-            }else{
-                String::from("JSON")
-            };
+            let operation = self
+                .operation
+                .as_ref()
+                .map(|s| s.to_uppercase())
+                .unwrap_or("JSON".to_string());
             let prefix = self.prefix.clone();
             async move {
                 match operation.as_str() {
-                    "SET" => {
-
-                    }
+                    "SET" => {}
                     "TS.ADD" => {
                         info!("Using TS.ADD");
-                        let mut kvs: KVRecord= serde_json::from_slice(record.value())?;
+                        let mut kvs: KVRecord = serde_json::from_slice(record.value())?;
                         info!("Using Operation: {}", &operation);
                         println!("kvs: Key {:?}", kvs["key"]);
                         println!("kvs: Value {:?}", kvs["value"]);
-                        println!("{}",prefix);
-                        let full_key=format!("{}_{}", &prefix, kvs.remove("key").unwrap());
-                        println!("Full key {}",full_key);
-                        let timestamp = if kvs.contains_key("timestamp"){
-                            let timestamp=kvs.remove("timestamp").unwrap();
-                            if timestamp.len()==13{
-                                let timestamp=timestamp.to_string();
-                                timestamp
-                            }else{
-                                "*".to_string()
+                        println!("{}", prefix);
+                        let full_key = format!(
+                            "{}_{}",
+                            &prefix,
+                            kvs.remove("key")
+                                .ok_or_else(|| anyhow!("key column is required"))?
+                        );
+                        println!("Full key {}", full_key);
+                        let timestamp = match kvs.entry("timestamp".to_string()) {
+                            Entry::Vacant(_) => "*".to_string(),
+                            Entry::Occupied(e) => {
+                                let timestamp = e.remove();
+                                if timestamp.len() == 13 {
+                                    timestamp
+                                } else {
+                                    "*".to_string()
+                                }
                             }
-                        } else{
-                            "*".to_string()
                         };
                         redis::cmd("TS.ADD")
-                        .arg(&[full_key, timestamp, kvs["value"].to_string()])
-                        .query_async(&mut con)
-                        .await?;
+                            .arg(&[full_key, timestamp, kvs["value"].to_string()])
+                            .query_async(&mut con)
+                            .await?;
                     }
                     _ => {
                         info!("Using JSON.SET");

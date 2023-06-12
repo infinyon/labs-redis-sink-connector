@@ -3,6 +3,8 @@ meta:
   name: my-redis-connector-sink-test-connector
   type: redis-sink
   topic: webinariiot
+  consumer:
+    max_bytes: 150000000
 redis:
   prefix: webinariiot
   url:
