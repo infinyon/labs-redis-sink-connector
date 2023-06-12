@@ -1,0 +1,21 @@
+meta:
+  version: 0.1.0
+  name: my-redis-connector-sink-test-connector
+  type: redis-sink
+  topic: mqtt-topic
+redis:
+  prefix: mqtt-topic
+  url:
+    secret:
+      name: "REDIS_URL"
+  operation: "TS.ADD"
+transforms:
+  - uses: infinyon/jolt@0.2.0
+    with:
+      spec:
+        - operation: shift
+          spec: 
+            payload:
+              key: "key"
+              value: "value"
+              timestamp: "timestamp"
