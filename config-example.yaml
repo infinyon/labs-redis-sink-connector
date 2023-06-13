@@ -2,10 +2,12 @@ meta:
   version: 0.1.0
   name: my-redis-connector-sink-test-connector
   type: redis-sink
-  topic: hackernews
+  topic: webinariiot
+  consumer:
+    max_bytes: 150000000
 redis:
-  prefix: hackernews
+  prefix: webinariiot
   url:
     secret:
       name: "REDIS_URL"
-  to_hash: false
+  operation: "TS.ADD"

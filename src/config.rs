@@ -5,5 +5,5 @@ use fluvio_connector_common::{connector, secret::SecretString};
 pub(crate) struct RedisConfig {
     pub prefix: String,
     pub url: SecretString,
-    pub to_hash: Option<bool>,
+    pub operation: Option<String>,
 }
