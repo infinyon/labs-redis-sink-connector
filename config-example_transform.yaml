@@ -1,6 +1,6 @@
 meta:
   version: 0.1.0
-  name: my-redis-connector-sink-test-connector
+  name: my-redis-connector-sink-connector-transform
   type: redis-sink
   topic: mqtt-topic
 redis:
