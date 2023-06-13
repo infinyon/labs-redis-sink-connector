@@ -1,0 +1,11 @@
+meta:
+  version: 0.1.0
+  name: my-redis-connector-sink-connector-transform
+  type: redis-sink
+  topic: mqtt-topic
+redis:
+  prefix: mqtt-topic
+  url:
+    secret:
+      name: "REDIS_URL"
+  operation: "TS.ADD"
