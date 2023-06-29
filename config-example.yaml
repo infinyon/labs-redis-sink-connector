@@ -10,4 +10,4 @@ redis:
   url:
     secret:
       name: "REDIS_URL"
-  operation: "TS.ADD"
+  operation: "SET"

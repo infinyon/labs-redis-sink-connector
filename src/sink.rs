@@ -51,7 +51,11 @@ impl Sink<Record> for RedisSink {
             let key = if let Some(key) = record.key() {
                 String::from_utf8_lossy(key)
             } else {
-                Cow::Owned(record.timestamp().to_string())
+                info!("No key found, using timestamp");
+                use std::time::SystemTime;
+                let duration_since_epoch = SystemTime::now().duration_since(SystemTime::UNIX_EPOCH).unwrap();
+                let timestamp = duration_since_epoch.as_nanos();
+                Cow::Owned(timestamp.to_string())
             };
             let key = format!("{}:{}", self.prefix, key);
             println!("key: {}", key);
@@ -63,7 +67,14 @@ impl Sink<Record> for RedisSink {
             let prefix = self.prefix.clone();
             async move {
                 match operation.as_str() {
-                    "SET" => {}
+                    "SET" => {
+                        info!("Using SET");
+                        let value = String::from_utf8_lossy(&record.value());
+                        redis::cmd("SET")
+                        .arg(&[key, value.to_string()])
+                        .query_async(&mut con)
+                        .await?;
+                    }
                     "TS.ADD" => {
                         info!("Using TS.ADD");
                         let mut kvs: KVRecord = serde_json::from_slice(record.value())?;
